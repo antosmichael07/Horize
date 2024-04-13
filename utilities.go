@@ -80,6 +80,8 @@ func fileToByte(filename string) (file_data []byte, err error) {
 }
 
 func checkTokenValidity(token string) (valid bool, login string, err error) {
+	go deleteExpiredTokens()
+
 	token_data := AccountToken{}
 	token_file, token_err := fileToByte(fmt.Sprintf("./save_data/account_tokens/%s.json", token))
 	if token_err != nil {
@@ -90,11 +92,49 @@ func checkTokenValidity(token string) (valid bool, login string, err error) {
 	if time.Now().Unix() > token_data.Time {
 		removal_err := os.Remove(fmt.Sprintf("./save_data/account_tokens/%s.json", token))
 		if removal_err != nil {
-			serverLog("utilities.go:93", fmt.Sprintf("failed to remove the token file \"%s.json\", the error \"%s\"", token, removal_err))
+			serverLog("utilities.go:95", fmt.Sprintf("failed to remove the token file \"%s.json\", the error \"%s\"", token, removal_err))
 			return false, "", nil
 		}
 		return false, "", nil
 	}
 
 	return true, string(token_data.Login), nil
+}
+
+func deleteExpiredTokens() {
+	if checkFileExistance("./save_data/account_tokens/.running_deletion") {
+		return
+	}
+	_, running_file_creation_err := os.Create("./save_data/account_tokens/.running_deletion")
+	if running_file_creation_err != nil {
+		serverLog("utilities.go:110", fmt.Sprintf("failed to create the file \".running_deletion\", the error \"%s\"", running_file_creation_err))
+		return
+	}
+
+	files, _ := os.ReadDir("./save_data/account_tokens")
+	for _, file := range files {
+		token_data := AccountToken{}
+		token_file, token_err := fileToByte(fmt.Sprintf("./save_data/account_tokens/%s", file.Name()))
+		if token_err != nil {
+			serverLog("utilities.go:119", fmt.Sprintf("failed to read the token file \"%s\", the error \"%s\"", file.Name(), token_err))
+			continue
+		}
+		if json.Unmarshal(token_file, &token_data) != nil {
+			serverLog("utilities.go:123", fmt.Sprintf("failed to unmarshal the token file \"%s\"", file.Name()))
+			continue
+		}
+
+		if time.Now().Unix() > token_data.Time {
+			removal_err := os.Remove(fmt.Sprintf("./save_data/account_tokens/%s", file.Name()))
+			if removal_err != nil {
+				serverLog("utilities.go:130", fmt.Sprintf("failed to remove the token file \"%s\", the error \"%s\"", file.Name(), removal_err))
+				continue
+			}
+		}
+	}
+
+	running_file_removal_err := os.Remove("./save_data/account_tokens/.running_deletion")
+	if running_file_removal_err != nil {
+		serverLog("utilities.go:138", fmt.Sprintf("failed to remove the file \".running_deletion\", the error \"%s\"", running_file_removal_err))
+	}
 }
