@@ -1,0 +1,12 @@
+[2024-04-13 08:21:08] could not read the json file "bomba.json", the error "open ./save_data/accounts/bomba: SystÃ©m nemÅ¯Å¾e nalÃ©zt uvedenÃ½ soubor."
+[2024-04-13 08:24:46] successfully sent a message to "lord1mispule@gmail.com", the message "Horize Account Verification" "You have 3 minutes to verify your account, your verification code is: 641706"
+[2024-04-13 08:24:54] an account was just created with the login "bomba"
+[2024-04-13 08:26:48] bumrï¿½ ï¿½&ï¿½C}4$ï¿½ï¿½9hï¿½"Jï¿½ï¿½5ï¿½ï¿½ï¿½'v6ï¿½Ð¤é½žï¿½~Ewï¿½ï¿½YPYï¿½uï¿½ï¿½9Œöº—-­¹av¥ÑlòÞÊžš‰QË 2Šÿn®!
+[2024-04-13 08:27:30] bum, rï¿½ ï¿½&ï¿½C}4$ï¿½ï¿½9hï¿½, "Jï¿½ï¿½5ï¿½ï¿½ï¿½'v6ï¿½Ð¤é½žï¿½~Ewï¿½ï¿½YPYï¿½uï¿½ï¿½, 9Œöº—-­¹av¥ÑlòÞÊžš‰QË 2Šÿn®!
+[2024-04-13 08:29:48] bomba|bum | bomba | bum | rï¿½ ï¿½&ï¿½C}4$ï¿½ï¿½9hï¿½ | "Jï¿½ï¿½5ï¿½ï¿½ï¿½'v6ï¿½Ð¤é½žï¿½~Ewï¿½ï¿½YPYï¿½uï¿½ï¿½ | 9Œöº—-­¹av¥ÑlòÞÊžš‰QË 2Šÿn®!
+[2024-04-13 08:30:42] bomba|bum | bomba | bum
+[2024-04-13 08:31:28] bomba|bum | bomba | bum | rï¿½ ï¿½&ï¿½C}4$ï¿½ï¿½9hï¿½ | "Jï¿½ï¿½5ï¿½ï¿½ï¿½'v6ï¿½Ð¤é½žï¿½~Ewï¿½ï¿½YPYï¿½uï¿½ï¿½ | 9Œöº—-­¹av¥ÑlòÞÊžš‰QË 2Šÿn®!
+[2024-04-13 08:44:36] the gmail code file "lord1mispule@gmail.com.json" was deleted because it expired
+[2024-04-13 08:44:37] successfully sent a message to "lord1mispule@gmail.com", the message "Horize Account Verification" "You have 3 minutes to verify your account, your verification code is: 613383"
+[2024-04-13 08:44:45] an account was just created with the login "bomba"
+[2024-04-13 08:46:42] an account was just logged in with the login "bomba"

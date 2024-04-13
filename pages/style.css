@@ -1,0 +1,14 @@
+@font-face {
+    font-family: "Horize";
+    src: url("./HorizeFont-Regular.ttf");
+}
+
+body {
+    font-family: Horize;
+    font-style: italic;
+    margin: 0;
+    padding: 0;
+    background-color: #101015;
+    color: #fff;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}

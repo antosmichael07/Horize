@@ -1,0 +1,55 @@
+@font-face {
+    font-family: "Horize";
+    src: url("./../HorizeFont-Regular.ttf");
+}
+
+body {
+    font-family: Horize;
+    font-style: italic;
+    margin: 0;
+    padding: 0;
+    background-color: #101015;
+    color: #fff;
+    -webkit-text-stroke: 1px #000;
+}
+
+.text-stroke-2 {
+    -webkit-text-stroke: 2px #000;
+}
+.text-stroke-3 {
+    -webkit-text-stroke: 3px #000;
+}
+.text-stroke-4 {
+    -webkit-text-stroke: 4px #000;
+}
+.text-stroke-5 {
+    -webkit-text-stroke: 5px #000;
+}
+.text-stroke-6 {
+    -webkit-text-stroke: 6px #000;
+}
+
+.container-fluid {
+    margin-top: 10vh;
+}
+
+h1 {
+    font-size: 93px;
+}
+
+input {
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-text-stroke: 0;
+    font-style: normal;
+}
+
+*:focus {
+    outline: none;
+}
+
+.response {
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-text-stroke: 0;
+    font-style: normal;
+    display: none;
+}
