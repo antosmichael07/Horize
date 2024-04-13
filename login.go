@@ -21,7 +21,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 	validity := checkLoginValidity(request)
 	if validity != "0" {
 		w.Write([]byte(validity))
-		serverLog(fmt.Sprintf("an account could not created because of \"%s\"", validity))
+		serverLog("login.go:24", fmt.Sprintf("an account could not created because of \"%s\"", validity))
 		return
 	}
 
@@ -29,13 +29,13 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 
 	password_file, password_file_err := fileToByte(fmt.Sprintf("./save_data/account_passwords/%s-pass", data[0]))
 	if password_file_err != nil {
-		serverLog(fmt.Sprintf("could not read the file \"%s-pass\", the error \"%s\"", data[0], password_file_err))
+		serverLog("login.go:32", fmt.Sprintf("could not read the file \"%s-pass\", the error \"%s\"", data[0], password_file_err))
 		w.Write([]byte("text-danger\\Server could not read account data, try again later"))
 		return
 	}
 	salt_file, salt_file_err := fileToByte(fmt.Sprintf("./save_data/account_passwords/%s-salt", data[0]))
 	if salt_file_err != nil {
-		serverLog(fmt.Sprintf("could not read the file \"%s-salt\", the error \"%s\"", data[0], salt_file_err))
+		serverLog("login.go:38", fmt.Sprintf("could not read the file \"%s-salt\", the error \"%s\"", data[0], salt_file_err))
 		w.Write([]byte("text-danger\\Server could not read account data, try again later"))
 		return
 	}
@@ -52,18 +52,18 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 
 	account_token_json, account_token_json_err := json.Marshal(AccountToken{data[0], time.Now().Unix() + 1200})
 	if account_token_json_err != nil {
-		serverLog(fmt.Sprintf("could not marshal the account token data to json, the error \"%s\"", account_token_json_err))
+		serverLog("login.go:55", fmt.Sprintf("could not marshal the account token data to json, the error \"%s\"", account_token_json_err))
 		w.Write([]byte("text-danger\\Server could not create account token, try again later"))
 		return
 	}
 	account_token_file_err := os.WriteFile(fmt.Sprintf("./save_data/account_tokens/%s.json", account_token), account_token_json, 0644)
 	if account_token_file_err != nil {
-		serverLog(fmt.Sprintf("could not write the account token file \"%s.json\", the error \"%s\"", account_token, account_token_file_err))
+		serverLog("login.go:61", fmt.Sprintf("could not write the account token file \"%s.json\", the error \"%s\"", account_token, account_token_file_err))
 		w.Write([]byte("text-danger\\Server could not create account token, try again later"))
 		return
 	}
 
-	serverLog(fmt.Sprintf("an account was just logged in with the login \"%s\"", data[0]))
+	serverLog("login.go:66", fmt.Sprintf("an account was just logged in with the login \"%s\"", data[0]))
 	w.Write([]byte(fmt.Sprintf("text-success\\Account logged in successfully\\%s", account_token)))
 }
 
@@ -105,26 +105,26 @@ func checkLoginValidity(str string) string {
 func gmailCodeHandler(w http.ResponseWriter, r *http.Request) {
 	file_infos, file_infos_err := os.ReadDir("./save_data/gmail_codes/")
 	if file_infos_err != nil {
-		serverLog(fmt.Sprintf("could not read directory: %s", file_infos_err))
+		serverLog("login.go:108", fmt.Sprintf("could not read directory: %s", file_infos_err))
 	} else {
 		for _, file_info := range file_infos {
 			gmail_code := GmailCode{}
 			gmail_code_json, gmail_code_json_err := fileToByte(fmt.Sprintf("./save_data/gmail_codes/%s", file_info.Name()))
 			if gmail_code_json_err != nil {
-				serverLog(fmt.Sprintf("could not read the gmail code file \"%s\", the error \"%s\"", file_info.Name(), gmail_code_json_err))
+				serverLog("login.go:114", fmt.Sprintf("could not read the gmail code file \"%s\", the error \"%s\"", file_info.Name(), gmail_code_json_err))
 				break
 			}
 			if json.Unmarshal(gmail_code_json, &gmail_code) != nil {
-				serverLog(fmt.Sprintf("could not unmarshal the gmail code file \"%s\", the error \"%s\"", file_info.Name(), gmail_code_json_err))
+				serverLog("login.go:118", fmt.Sprintf("could not unmarshal the gmail code file \"%s\", the error \"%s\"", file_info.Name(), gmail_code_json_err))
 				break
 			}
 			if time.Now().Unix() > gmail_code.Time {
 				removal_err := os.Remove(fmt.Sprintf("./save_data/gmail_codes/%s", file_info.Name()))
 				if removal_err != nil {
-					serverLog(fmt.Sprintf("could not delete the gmail code file \"%s\", the error \"%s\"", file_info.Name(), removal_err))
+					serverLog("login.go:124", fmt.Sprintf("could not delete the gmail code file \"%s\", the error \"%s\"", file_info.Name(), removal_err))
 					break
 				}
-				serverLog(fmt.Sprintf("the gmail code file \"%s\" was deleted because it expired", file_info.Name()))
+				serverLog("login.go:127", fmt.Sprintf("the gmail code file \"%s\" was deleted because it expired", file_info.Name()))
 			}
 		}
 	}
@@ -144,13 +144,13 @@ func gmailCodeHandler(w http.ResponseWriter, r *http.Request) {
 	gmail_code := GmailCode{time.Now().Unix() + 180, code}
 	json_data, json_err := json.Marshal(gmail_code)
 	if json_err != nil {
-		serverLog(fmt.Sprintf("could not marshal the gmail code data to json, the gmail \"%s\", the error \"%s\"", gmail, json_err))
+		serverLog("login.go:147", fmt.Sprintf("could not marshal the gmail code data to json, the gmail \"%s\", the error \"%s\"", gmail, json_err))
 		w.Write([]byte("text-danger\\Server could not send the code, try again later"))
 		return
 	}
 	gmail_code_file_err := os.WriteFile(fmt.Sprintf("./save_data/gmail_codes/%s.json", gmail), json_data, 0644)
 	if gmail_code_file_err != nil {
-		serverLog(fmt.Sprintf("could not write the gmail code file \"%s.json\", the error \"%s\"", gmail, gmail_code_file_err))
+		serverLog("login.go:153", fmt.Sprintf("could not write the gmail code file \"%s.json\", the error \"%s\"", gmail, gmail_code_file_err))
 		w.Write([]byte("text-danger\\Server could not send the code, try again later"))
 		return
 	}
@@ -180,7 +180,7 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 	validity := checkRegisterValidity(request)
 	if validity != "0" {
 		w.Write([]byte(validity))
-		serverLog(fmt.Sprintf("an account could not created because of \"%s\"", validity))
+		serverLog("login.go:183", fmt.Sprintf("an account could not created because of \"%s\"", validity))
 		return
 	}
 
@@ -189,7 +189,7 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 	salt := make([]byte, 16)
 	_, salt_err := rand.Read(salt)
 	if salt_err != nil {
-		serverLog(fmt.Sprintf("could not generate salt for the account password, the error \"%s\"", salt_err))
+		serverLog("login.go:192", fmt.Sprintf("could not generate salt for the account password, the error \"%s\"", salt_err))
 		w.Write([]byte("text-danger\\Server could not generate salt for the account password, try again later"))
 		return
 	}
@@ -197,60 +197,60 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 
 	json_data, json_err := json.Marshal(Account{data[2], data[3], ""})
 	if json_err != nil {
-		serverLog(fmt.Sprintf("could not marshal the account data to json, the error \"%s\"", json_err))
+		serverLog("login.go:200", fmt.Sprintf("could not marshal the account data to json, the error \"%s\"", json_err))
 		w.Write([]byte("text-danger\\Server could not create the account, try again later"))
 		return
 	}
 	account_json_file_err := os.WriteFile(fmt.Sprintf("./save_data/accounts/%s.json", data[0]), json_data, 0644)
 	if account_json_file_err != nil {
-		serverLog(fmt.Sprintf("could not write the account file \"%s.json\", the error \"%s\"", data[0], account_json_file_err))
+		serverLog("login.go:206", fmt.Sprintf("could not write the account file \"%s.json\", the error \"%s\"", data[0], account_json_file_err))
 		w.Write([]byte("text-danger\\Server could not create the account, try again later"))
 		return
 	}
 	gmail_file_err := os.WriteFile(fmt.Sprintf("./save_data/existing_gmails/%s.json", data[3]), []byte(""), 0644)
 	if gmail_file_err != nil {
-		serverLog(fmt.Sprintf("could not write the gmail file \"%s.json\", the error \"%s\"", data[3], gmail_file_err))
+		serverLog("login.go:212", fmt.Sprintf("could not write the gmail file \"%s.json\", the error \"%s\"", data[3], gmail_file_err))
 		account_file_remove_err := os.Remove(fmt.Sprintf("./save_data/accounts/%s.json", data[0]))
 		if account_file_remove_err != nil {
-			serverLog(fmt.Sprintf("could not remove the account file \"%s.json\", the error \"%s\"", data[0], account_file_remove_err))
+			serverLog("login.go:215", fmt.Sprintf("could not remove the account file \"%s.json\", the error \"%s\"", data[0], account_file_remove_err))
 		}
 		w.Write([]byte("text-danger\\Server could not create the account, try again later"))
 		return
 	}
 	password_file_err := os.WriteFile(fmt.Sprintf("./save_data/account_passwords/%s-pass", data[0]), hashed_password, 0644)
 	if password_file_err != nil {
-		serverLog(fmt.Sprintf("could not write the password file \"%s-pass\", the error \"%s\"", data[0], password_file_err))
+		serverLog("login.go:222", fmt.Sprintf("could not write the password file \"%s-pass\", the error \"%s\"", data[0], password_file_err))
 		account_file_remove_err := os.Remove(fmt.Sprintf("./save_data/accounts/%s.json", data[0]))
 		if account_file_remove_err != nil {
-			serverLog(fmt.Sprintf("could not remove the account file \"%s.json\", the error \"%s\"", data[0], account_file_remove_err))
+			serverLog("login.go:225", fmt.Sprintf("could not remove the account file \"%s.json\", the error \"%s\"", data[0], account_file_remove_err))
 		}
 		gmail_file_remove_err := os.Remove(fmt.Sprintf("./save_data/existing_gmails/%s.json", data[3]))
 		if gmail_file_remove_err != nil {
-			serverLog(fmt.Sprintf("could not remove the gmail file \"%s.json\", the error \"%s\"", data[3], gmail_file_remove_err))
+			serverLog("login.go:229", fmt.Sprintf("could not remove the gmail file \"%s.json\", the error \"%s\"", data[3], gmail_file_remove_err))
 		}
 		w.Write([]byte("text-danger\\Server could not create the account, try again later"))
 		return
 	}
 	salt_file_err := os.WriteFile(fmt.Sprintf("./save_data/account_passwords/%s-salt", data[0]), salt, 0644)
 	if salt_file_err != nil {
-		serverLog(fmt.Sprintf("could not write the salt file \"%s-salt\", the error \"%s\"", data[0], salt_file_err))
+		serverLog("login.go:236", fmt.Sprintf("could not write the salt file \"%s-salt\", the error \"%s\"", data[0], salt_file_err))
 		account_file_remove_err := os.Remove(fmt.Sprintf("./save_data/accounts/%s.json", data[0]))
 		if account_file_remove_err != nil {
-			serverLog(fmt.Sprintf("could not remove the account file \"%s.json\", the error \"%s\"", data[0], account_file_remove_err))
+			serverLog("login.go:239", fmt.Sprintf("could not remove the account file \"%s.json\", the error \"%s\"", data[0], account_file_remove_err))
 		}
 		gmail_file_remove_err := os.Remove(fmt.Sprintf("./save_data/existing_gmails/%s.json", data[3]))
 		if gmail_file_remove_err != nil {
-			serverLog(fmt.Sprintf("could not remove the gmail file \"%s.json\", the error \"%s\"", data[3], gmail_file_remove_err))
+			serverLog("login.go:243", fmt.Sprintf("could not remove the gmail file \"%s.json\", the error \"%s\"", data[3], gmail_file_remove_err))
 		}
 		password_file_remove_err := os.Remove(fmt.Sprintf("./save_data/account_passwords/%s-pass", data[0]))
 		if password_file_remove_err != nil {
-			serverLog(fmt.Sprintf("could not remove the password file \"%s-pass\", the error \"%s\"", data[0], password_file_remove_err))
+			serverLog("login.go:247", fmt.Sprintf("could not remove the password file \"%s-pass\", the error \"%s\"", data[0], password_file_remove_err))
 		}
 		w.Write([]byte("text-danger\\Server could not create the account, try again later"))
 		return
 	}
 
-	serverLog(fmt.Sprintf("an account was just created with the login \"%s\"", data[0]))
+	serverLog("login.go:253", fmt.Sprintf("an account was just created with the login \"%s\"", data[0]))
 	w.Write([]byte("text-success\\Account created successfully, you can now login"))
 }
 
