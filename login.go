@@ -80,6 +80,10 @@ func checkLoginValidity(str string) string {
 
 	data := strings.Split(str, "|")
 
+	if strings.ReplaceAll(data[0], " ", "") == "" {
+		return "text-danger\\Invalid login (cannot be empty)"
+	}
+
 	login_check, login_check_err := regexp.MatchString("^[a-zA-Z0-9]*$", data[0])
 	if login_check_err != nil {
 		return "text-danger\\Server could not check the login validity, try again later"
@@ -262,6 +266,10 @@ func checkRegisterValidity(str string) string {
 	}
 
 	data := strings.Split(str, "|")
+
+	if strings.ReplaceAll(data[0], " ", "") == "" {
+		return "text-danger\\Invalid login (cannot be empty)"
+	}
 
 	login_check, login_check_err := regexp.MatchString("^[a-zA-Z0-9]*$", data[0])
 	if login_check_err != nil {
