@@ -68,7 +68,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	account_token := ""
-	for i := 0; i < 16; i++ {
+	for i := 0; i < 32; i++ {
 		account_token = fmt.Sprintf("%s%d", account_token, randNumber(0, 9))
 	}
 
@@ -330,4 +330,28 @@ func checkRegisterValidity(str string) string {
 	}
 
 	return "0"
+}
+
+func logoutHandler(w http.ResponseWriter, r *http.Request) {
+	request := reqBodyToString(r)
+
+	validity, _, err := checkTokenValidity(request)
+	if err != nil {
+		serverLog("login.go:340", fmt.Sprintf("could not check validity of \"%s.json\", the error \"%s\"", request, err))
+		w.Write([]byte("text-danger\\Server could not log you out, try again later"))
+		return
+	}
+	if !validity {
+		serverLog("login.go:345", fmt.Sprintf("someone tried to log out but the token was invalid, the token \"%s\"", request))
+	}
+
+	removal_err := os.Remove(fmt.Sprintf("./save_data/account_tokens/%s.json", request))
+	if removal_err != nil {
+		serverLog("login.go:350", fmt.Sprintf("could not remove \"%s.json\", the error \"%s\"", request, err))
+		w.Write([]byte("text-danger\\Server could not log you out, try again later"))
+		return
+	}
+
+	serverLog("login.go:355", fmt.Sprintf("An account just logged out with the token \"%s\"", request))
+	w.Write([]byte("text-success\\Account logged out"))
 }
