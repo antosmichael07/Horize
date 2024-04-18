@@ -4,7 +4,6 @@
 
 needs to create these folders<br>
 /play<br>
-|<br>
 |--account_passwords<br>
 |--account_tokens<br>
 |--accounts<br>
