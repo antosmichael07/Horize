@@ -39,3 +39,35 @@ body {
     margin-right: 10px;
     color: #bbb;
 }
+
+@media screen and (max-width: 1720px) {
+    .nav-link {
+        font-size: 45px;
+    }
+}
+
+@media screen and (max-width: 1560px) {
+    .nav-link {
+        font-size: 40px;
+    }
+}
+
+@media screen and (max-width: 1420px) {
+    .nav-link {
+        font-size: 35px;
+    }
+}
+
+@media screen and (max-width: 1270px) {
+    .nav-link {
+        font-size: 30px;
+        -webkit-text-stroke: 1.5px #000;
+    }
+}
+
+@media screen and (max-width: 1120px) {
+    .nav-link {
+        font-size: 25px;
+        -webkit-text-stroke: 1.5px #000;
+    }
+}
