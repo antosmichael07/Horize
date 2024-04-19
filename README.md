@@ -3,17 +3,20 @@
 ## Instalation
 
 needs to create these folders<br>
-/play<br>
-|--account_passwords<br>
-|--account_tokens<br>
-|--accounts<br>
-|--existing_gmails<br>
-|--gmail_codes
+
+logs<br>
+save_data<br>
+├── account_passwords<br>
+├── account_tokens<br>
+├── accounts<br>
+├── existing_gmails<br>
+└── gmail_codes
 
 ### Script for it
-mkdir play<br>
-mkdir play/account_passwords<br>
-mkdir play/account_tokens<br>
-mkdir play/accounts<br>
-mkdir play/existing_gmails<br>
-mkdir play/gmail_codes
+mkdir logs<br>
+mkdir save_data<br>
+mkdir save_data/account_passwords<br>
+mkdir save_data/account_tokens<br>
+mkdir save_data/accounts<br>
+mkdir save_data/existing_gmails<br>
+mkdir save_data/gmail_codes
