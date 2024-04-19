@@ -13,10 +13,10 @@ save_data<br>
 └── gmail_codes
 
 ### Script for it
-mkdir logs<br>
-mkdir save_data<br>
-mkdir save_data/account_passwords<br>
-mkdir save_data/account_tokens<br>
-mkdir save_data/accounts<br>
-mkdir save_data/existing_gmails<br>
-mkdir save_data/gmail_codes
+`mkdir logs
+mkdir save_data
+mkdir save_data/account_passwords
+mkdir save_data/account_tokens
+mkdir save_data/accounts
+mkdir save_data/existing_gmails
+mkdir save_data/gmail_codes`
