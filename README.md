@@ -3,7 +3,7 @@
 ## Instalation
 
 needs to create these folders<br>
-.
+.<br>
 ├── logs<br>
 └── save_data<br>
     ├── account_passwords<br>
