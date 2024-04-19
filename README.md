@@ -3,14 +3,14 @@
 ## Instalation
 
 needs to create these folders<br>
-.<br>
-├── logs<br>
-└── save_data<br>
-<p>    ├── account_passwords</p><br>
-    ├── account_tokens<br>
-    ├── accounts<br>
-    ├── existing_gmails<br>
-    └── gmail_codes
+
+logs<br>
+save_data<br>
+├── account_passwords<br>
+├── account_tokens<br>
+├── accounts<br>
+├── existing_gmails<br>
+└── gmail_codes
 
 ### Script for it
 mkdir logs<br>
