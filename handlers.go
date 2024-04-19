@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"os"
 )
 
 func init_post_handlers() {
@@ -13,5 +14,20 @@ func init_post_handlers() {
 }
 
 func init_get_handlers() {
-	http.Handle("/", http.FileServer(http.Dir("./pages")))
+	fs := FileServerWith404(http.Dir("./pages"))
+	http.Handle("/", http.StripPrefix("/", fs))
+}
+
+func FileServerWith404(root http.FileSystem) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		f, err := root.Open(r.URL.Path)
+		if err != nil && os.IsNotExist(err) {
+			http.ServeFile(w, r, "./pages/404")
+			return
+		}
+		if err == nil {
+			f.Close()
+		}
+		http.FileServer(root).ServeHTTP(w, r)
+	})
 }

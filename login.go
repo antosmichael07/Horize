@@ -189,7 +189,7 @@ func checkGmailValidity(gmail string) string {
 		return "text-danger\\Invalid gmail (must be a gmail account)"
 	}
 
-	if checkFileExistance(fmt.Sprintf("./save_data/existing_gmails/%s.json", gmail)) {
+	if checkFileExistance(fmt.Sprintf("./save_data/existing_gmails/%s", gmail)) {
 		return "text-danger\\Gmail is already in use"
 	}
 
@@ -229,7 +229,7 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("text-danger\\Server could not create the account, try again later"))
 		return
 	}
-	gmail_file_err := os.WriteFile(fmt.Sprintf("./save_data/existing_gmails/%s.json", data[3]), []byte(""), 0644)
+	gmail_file_err := os.WriteFile(fmt.Sprintf("./save_data/existing_gmails/%s", data[3]), []byte(""), 0644)
 	if gmail_file_err != nil {
 		serverLog("login.go:234", fmt.Sprintf("could not write the gmail file \"%s.json\", the error \"%s\"", data[3], gmail_file_err))
 		account_file_remove_err := os.Remove(fmt.Sprintf("./save_data/accounts/%s.json", data[0]))
@@ -246,7 +246,7 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 		if account_file_remove_err != nil {
 			serverLog("login.go:247", fmt.Sprintf("could not remove the account file \"%s.json\", the error \"%s\"", data[0], account_file_remove_err))
 		}
-		gmail_file_remove_err := os.Remove(fmt.Sprintf("./save_data/existing_gmails/%s.json", data[3]))
+		gmail_file_remove_err := os.Remove(fmt.Sprintf("./save_data/existing_gmails/%s", data[3]))
 		if gmail_file_remove_err != nil {
 			serverLog("login.go:251", fmt.Sprintf("could not remove the gmail file \"%s.json\", the error \"%s\"", data[3], gmail_file_remove_err))
 		}
@@ -260,7 +260,7 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 		if account_file_remove_err != nil {
 			serverLog("login.go:261", fmt.Sprintf("could not remove the account file \"%s.json\", the error \"%s\"", data[0], account_file_remove_err))
 		}
-		gmail_file_remove_err := os.Remove(fmt.Sprintf("./save_data/existing_gmails/%s.json", data[3]))
+		gmail_file_remove_err := os.Remove(fmt.Sprintf("./save_data/existing_gmails/%s", data[3]))
 		if gmail_file_remove_err != nil {
 			serverLog("login.go:265", fmt.Sprintf("could not remove the gmail file \"%s.json\", the error \"%s\"", data[3], gmail_file_remove_err))
 		}
