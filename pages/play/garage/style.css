@@ -41,17 +41,22 @@ body {
 }
 
 .carousel {
-    height: calc(25vw * 0.5625 - 2px);
+    height: calc(20vw * 0.5625);
     position: fixed;
-    bottom: 0;
-}
-
-.carousel-item {
-    margin-left: 1px;
+    bottom: 7px;
+    margin-left: calc(10vw - 6px);
+    margin-right: calc(10vw - 6px);
 }
 
 .my-carousel-imgs {
-    height: calc(25vw * 0.5625 - 2px);
+    height: calc(20vw * 0.5625);
+}
+
+.my-carousel-imgs:hover {
+    border: 5px solid transparent;
+    border-image: linear-gradient(90deg, rgba(221, 221, 221, 0), #ddd, #ccc, #bbb, #aaa, #999, #888, rgba(136, 136, 136, 0)) 0 0 1 0;
+    height: calc(20vw * 0.5625 + 4.4px);
+    margin-top: -10px;
 }
 
 .carousel-control-next, .carousel-control-prev {

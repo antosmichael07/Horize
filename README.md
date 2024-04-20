@@ -2,8 +2,7 @@
 
 ## Instalation
 
-needs to create these folders<br>
-
+### Create these folders
 logs<br>
 save_data<br>
 ├── account_passwords<br>
