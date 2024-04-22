@@ -16,6 +16,8 @@ import (
 )
 
 func loginHandler(w http.ResponseWriter, r *http.Request) {
+	time.Sleep(time.Second * 4)
+
 	request := reqBodyToString(r)
 
 	validity := checkLoginValidity(request)
@@ -125,6 +127,8 @@ func checkLoginValidity(str string) string {
 }
 
 func gmailCodeHandler(w http.ResponseWriter, r *http.Request) {
+	time.Sleep(time.Second * 2)
+
 	file_infos, file_infos_err := os.ReadDir("./save_data/gmail_codes/")
 	if file_infos_err != nil {
 		serverLog("login.go:130", fmt.Sprintf("could not read directory: %s", file_infos_err))
@@ -197,6 +201,8 @@ func checkGmailValidity(gmail string) string {
 }
 
 func registerHandler(w http.ResponseWriter, r *http.Request) {
+	time.Sleep(time.Second * 4)
+
 	request := reqBodyToString(r)
 
 	validity := checkRegisterValidity(request)
