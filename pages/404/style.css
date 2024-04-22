@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Horize";
-    src: url("./../HorizeFont-Regular.ttf");
+    src: url("./../resources/HorizeFont-Regular.ttf");
 }
 
 body {
@@ -9,6 +9,8 @@ body {
     margin: 0;
     padding: 0;
     background-color: #101015;
+    background-image: url("./../resources/misc/skoda-octavia-rs-background.png");
+    background-size: cover;
     color: #fff;
     -webkit-text-stroke: 1px #000;
 }
@@ -29,45 +31,25 @@ body {
     -webkit-text-stroke: 6px #000;
 }
 
+.container-fluid {
+    margin-top: 10vh;
+}
+
+h1 {
+    font-size: 93px;
+}
+
 *:focus {
     outline: none;
 }
 
-.nav-link {
-    font-size: 50px;
-    -webkit-text-stroke: 2px #000;
-    margin-right: 10px;
-    color: #bbb;
+a {
+    text-decoration: none;
 }
 
-@media screen and (max-width: 1720px) {
-    .nav-link {
-        font-size: 45px;
-    }
-}
-
-@media screen and (max-width: 1560px) {
-    .nav-link {
-        font-size: 40px;
-    }
-}
-
-@media screen and (max-width: 1420px) {
-    .nav-link {
-        font-size: 35px;
-    }
-}
-
-@media screen and (max-width: 1270px) {
-    .nav-link {
-        font-size: 30px;
-        -webkit-text-stroke: 1.5px #000;
-    }
-}
-
-@media screen and (max-width: 1120px) {
-    .nav-link {
-        font-size: 25px;
-        -webkit-text-stroke: 1.5px #000;
+@media screen and (max-width: 1200px) {
+    body {
+        background-size: contain;
+        background-repeat: repeat;
     }
 }

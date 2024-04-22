@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Horize";
-    src: url("./../HorizeFont-Regular.ttf");
+    src: url("./../resources/HorizeFont-Regular.ttf");
 }
 
 body {
@@ -9,7 +9,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #101015;
-    background-image: url("./background.png");
+    background-image: url("./../resources/misc/skoda-octavia-rs-background.png");
     background-size: cover;
     color: #fff;
     -webkit-text-stroke: 1px #000;
