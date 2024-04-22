@@ -22,7 +22,7 @@ func FileServerWith404(root http.FileSystem) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		f, err := root.Open(r.URL.Path)
 		if err != nil && os.IsNotExist(err) {
-			http.ServeFile(w, r, "./pages/404")
+			http.ServeFile(w, r, "./.go_to_404.html")
 			return
 		}
 		if err == nil {
