@@ -3,12 +3,19 @@
     src: url("./../../resources/HorizeFont-Regular.ttf");
 }
 
+@keyframes hover-carousel {
+    0% {}
+    100% {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+}
+
 body {
     font-family: Horize;
     font-style: italic;
     margin: 0;
     padding: 0;
-    background-color: #444;
+    background-color: #101015;
     color: #fff;
     -webkit-text-stroke: 1px #000;
 }
@@ -46,6 +53,8 @@ body {
     bottom: 7px;
     margin-left: calc(10vw - 6px);
     margin-right: calc(10vw - 6px);
+    box-shadow: 0 0 15px 30px rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .my-carousel-imgs {
@@ -57,6 +66,7 @@ body {
     border-image: linear-gradient(90deg, rgba(221, 221, 221, 0), #ddd, #ccc, #bbb, #aaa, #999, #888, rgba(136, 136, 136, 0)) 0 0 1 0;
     height: calc(20vw * 0.5625 + 4.4px);
     margin-top: -10px;
+    animation: hover-carousel 0.35s forwards;
 }
 
 .carousel-control-next, .carousel-control-prev {
