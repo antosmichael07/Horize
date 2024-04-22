@@ -223,7 +223,7 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	hashed_password := argon2.IDKey([]byte(data[1]), salt, 1, 64*1024, 4, 32)
 
-	json_data, json_err := json.Marshal(Account{data[2], data[3], ""})
+	json_data, json_err := json.Marshal(Account{data[2], data[3]})
 	if json_err != nil {
 		serverLog("login.go:222", fmt.Sprintf("could not marshal the account data to json, the error \"%s\"", json_err))
 		w.Write([]byte("text-danger\\Server could not create the account, try again later"))

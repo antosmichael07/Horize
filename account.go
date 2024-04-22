@@ -3,7 +3,6 @@ package main
 type Account struct {
 	Nickname string
 	Gmail    string
-	Data     string
 }
 
 type GmailCode struct {
