@@ -167,7 +167,7 @@ func gmailCodeHandler(w http.ResponseWriter, r *http.Request) {
 		code = fmt.Sprintf("%s%d", code, randNumber(0, 9))
 	}
 
-	gmail_code := GmailCode{time.Now().Unix() + 180, code}
+	gmail_code := GmailCode{time.Now().Unix() + 120, code}
 	json_data, json_err := json.Marshal(gmail_code)
 	if json_err != nil {
 		serverLog("login.go:169", fmt.Sprintf("could not marshal the gmail code data to json, the gmail \"%s\", the error \"%s\"", gmail, json_err))
@@ -181,7 +181,7 @@ func gmailCodeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	sendMail("Horize Account Verification", fmt.Sprintf("You have 3 minutes to verify your account, your verification code is: %s", code), gmail)
+	sendMail("Horize Account Verification", fmt.Sprintf("You have 2 minutes to verify your account, your verification code is: %s", code), gmail)
 	w.Write([]byte("text-success\\Code sent successfully"))
 }
 
