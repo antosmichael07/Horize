@@ -11,6 +11,8 @@ func init_post_handlers() {
 	http.HandleFunc("/post_logout", logoutHandler)
 
 	http.HandleFunc("/post_gmail_code", gmailCodeHandler)
+
+	http.HandleFunc("/post_get_cars", getCarsHandler)
 }
 
 func init_get_handlers() {
