@@ -1,7 +1,7 @@
 package main
 
-type Cars struct {
-	cars []string
-	modifications []string
-	paint []string
+type AccountCars struct {
+	Cars          []string
+	Modifications []string
+	Paint         []string
 }
