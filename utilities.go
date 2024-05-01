@@ -117,16 +117,16 @@ func deleteExpiredTokens() {
 		return
 	}
 
-	serverLog("utilities.go:120", "deleting expired tokens will start in 10 seconds")
-
-	time.Sleep(time.Second * 10)
-
 	running_deletion_file, running_file_creation_err := os.Create("./save_data/account_tokens/.running_deletion")
 	if running_file_creation_err != nil {
-		serverLog("utilities.go:126", fmt.Sprintf("failed to create the file \".running_deletion\", the error \"%s\"", running_file_creation_err))
+		serverLog("utilities.go:122", fmt.Sprintf("failed to create the file \".running_deletion\", the error \"%s\"", running_file_creation_err))
 		return
 	}
 	running_deletion_file.Close()
+
+	serverLog("utilities.go:127", "deleting expired tokens will start in 10 seconds")
+
+	time.Sleep(time.Second * 10)
 
 	files, _ := os.ReadDir("./save_data/account_tokens")
 	for _, file := range files {
@@ -149,6 +149,8 @@ func deleteExpiredTokens() {
 			if removal_err != nil {
 				serverLog("utilities.go:150", fmt.Sprintf("failed to remove the token file \"%s\", the error \"%s\"", file.Name(), removal_err))
 				continue
+			} else {
+				serverLog("utilities.go:153", fmt.Sprintf("removed the token file \"%s\"", file.Name()))
 			}
 		}
 	}
@@ -157,8 +159,8 @@ func deleteExpiredTokens() {
 
 	running_file_removal_err := os.Remove("./save_data/account_tokens/.running_deletion")
 	if running_file_removal_err != nil {
-		serverLog("utilities.go:160", fmt.Sprintf("failed to remove the file \".running_deletion\", the error \"%s\"", running_file_removal_err))
+		serverLog("utilities.go:162", fmt.Sprintf("failed to remove the file \".running_deletion\", the error \"%s\"", running_file_removal_err))
 	}
 
-	serverLog("utilities.go:163", "deleting expired tokens has finished")
+	serverLog("utilities.go:165", "deleting expired tokens has finished")
 }

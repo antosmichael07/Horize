@@ -13,6 +13,8 @@ func init_post_handlers() {
 	http.HandleFunc("/post_gmail_code", gmailCodeHandler)
 
 	http.HandleFunc("/post_get_cars", getCarsHandler)
+	http.HandleFunc("/post_add_car", addCarHandler)
+	http.HandleFunc("/post_remove_car", removeCarHandler)
 }
 
 func init_get_handlers() {
